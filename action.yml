@@ -1,9 +1,9 @@
-name: 'Setup MySQL'
-description: 'Setup a MySQL database'
-author: 'Mirro Mutth'
+name: 'Setup MySQL with Python 2.7'
+description: 'Setup a MySQL database with Python 2.7'
+author: 'Griffin Kelly'
 branding:
-  icon: 'database'
-  color: 'orange'
+  icon: check-circle
+  color: green
 inputs:
   host port:
     description: 'The port of host'
