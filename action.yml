@@ -41,6 +41,26 @@ inputs:
     description: 'MYSQL_PASSWORD - specified superuser password which user is power for created database'
     required: false
     default: ''
+  settings path:
+    description: "The path of the directory containing the settings file(Without `./`)"
+    required: false
+    default: './'
+  parallel tests:
+    description: "Run tests in parallel"
+    default: false
+    required: false
+  requirements file:
+    description: "The path of dependancy file, typically requirements.txt"
+    default: "requirements.txt"
+    required: false
+  env file:
+    description: "The path of an env file, if you require environment variables"
+    default: ""
+    required: false
+  test apps:
+    description: "Specific apps you want to test"
+    default: ""
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
