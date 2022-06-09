@@ -30,3 +30,32 @@ docker_run="$docker_run -d -p $INPUT_HOST_PORT:$INPUT_CONTAINER_PORT mysql:$INPU
 docker_run="$docker_run --character-set-server=$INPUT_CHARACTER_SET_SERVER --collation-server=$INPUT_COLLATION_SERVER"
 
 sh -c "$docker_run"
+
+# Setup user environment vars
+if [[ ! -z $ENV_FILE_NAME ]]; then
+    echo "Setting up your environment variables"
+    python /setup_env_script.py
+    . ./$SHELL_FILE_NAME
+fi
+
+
+export SETTINGS_FILE="./$INPUT_SETTINGS_PATH"
+export SHELL_FILE_NAME="set_env.sh"
+export ENV_FILE_NAME=$INPUT_ENV_FILE
+
+
+pip install setuptools-scm==5.0.2
+pip install -r $INPUT_REQUIREMENTS_FILE
+echo "Migrating DB"
+python2 manage.py migrate
+
+echo "Running your tests"
+
+# TODO: Find a better alternative
+if [ "$INPUT_PARALLEL_TESTS" == "true" ]; then
+    echo "Enabled Parallel Testing"
+    python2 manage.py test --parallel
+else 
+    python2 manage.py test $INPUT_TEST_APPS
+fi
+
