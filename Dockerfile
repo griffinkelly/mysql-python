@@ -2,7 +2,8 @@ FROM docker:stable
 
 RUN apk --no-cache update
 RUN apk add --update alpine-sdk
-RUN apk --no-cache --update-cache add gcc gfortran py-pip build-base wget freetype-dev libpng-dev openblas-dev
+RUN apk --no-cache add lapack libstdc++   && apk --no-cache add --virtual .builddeps g++ gcc gfortran musl-dev lapack-dev
+RUN apk --no-cache --update-cache add py-pip build-base wget freetype-dev libpng-dev openblas-dev
 
 RUN apk add --no-cache python2
 
