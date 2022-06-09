@@ -1,5 +1,9 @@
 FROM docker:stable
 
+RUN apk --no-cache update
+RUN apk add --update alpine-sdk
+RUN apk --no-cache --update-cache add gcc gfortran py-pip build-base wget freetype-dev libpng-dev openblas-dev
+
 RUN apk add --no-cache python2
 
 RUN apk --no-cache add curl
